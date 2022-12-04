@@ -9,7 +9,7 @@ import { swap, delay } from '../../utils/utils'
 
 export const StringComponent: React.FC = () => {
 	const [input, setInput] = useState<string>('')
-	const [inProgress, setInProgress] = useState(false)
+	const [inProgress, setInProgress] = useState<boolean>(false)
 	const [arr, setArr] = useState<string[]>([])
 	const [step, setStep] = useState<number>(0)
 
@@ -19,7 +19,7 @@ export const StringComponent: React.FC = () => {
 
 		const arrOfValueInput = input.split('')
 		setArr([...arrOfValueInput])
-		await delay(500) //задержка 0.5с
+		await delay(500)
 
 		let start = 0
 		let end = arrOfValueInput.length - 1
@@ -29,7 +29,7 @@ export const StringComponent: React.FC = () => {
 			end -= 1
 			setStep(prev => prev + 1)
 			setArr([...arrOfValueInput])
-			await delay(1000) //задержка 1с
+			await delay(1000)
 		}
 
 		setInProgress(false)

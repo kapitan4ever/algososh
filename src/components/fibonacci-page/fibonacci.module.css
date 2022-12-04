@@ -1,0 +1,15 @@
+.layout {
+	max-width: 522px;
+	display: flex;
+	margin: auto;
+	gap: 12px;
+}
+.list {
+	display: flex;
+	gap: 48px 16px;
+	justify-content: center;
+	max-width: 944px;
+	flex-wrap: wrap;
+	margin: 48px auto;
+	align-items: center;
+}
