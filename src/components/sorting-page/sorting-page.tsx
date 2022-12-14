@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Direction } from '../../types/direction'
 import { delay, swap } from '../../utils/utils'
 import { Button } from '../ui/button/button'
@@ -100,6 +100,10 @@ export const SortingPage: FC = () => {
 			}
 			setInProgress({ ...inProgress, ascending: false, descending: false })
 		}
+//первоначальная загрузка массива
+		 useEffect(() => {
+				setNewArr(randomArr())
+			}, [])
 
 	return (
 		<SolutionLayout title='Сортировка массива'>
@@ -150,9 +154,7 @@ export const SortingPage: FC = () => {
 				</div>
 			</form>
 			<div className={styles.list}>
-				{newArr.length === 0
-					? null
-					: newArr.map((item, index) => {
+				{newArr.map((item, index) => {
 							return <Column index={item.item} key={index} state={item.state} />
 					  })}
 			</div>

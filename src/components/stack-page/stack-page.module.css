@@ -1,9 +1,9 @@
 .layout {
-	max-width: 980px;
+	max-width: 829px;
 	display: flex;
 	margin: auto;
 	gap: 12px;
-	align-items: center;
+	align-items: top;
 	justify-content: space-between;
 }
 .leftWrap {
