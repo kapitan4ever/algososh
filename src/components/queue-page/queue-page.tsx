@@ -49,16 +49,67 @@ export const QueuePage: React.FC = () => {
 		})
 	}
 
+	const dequeue = async () => {
+		setInProgress(prev => {
+			return {
+				...prev,
+				pop: true,
+			}
+		})
+		if(queue.getLength() > 0) {
+			queue.dequeue()
+			setArr([...queue.getQueue()])
+			setCurr(queue.getHead() % queue.getSize())
+			await delay(500)
+			setHead(queue.getHead())
+			setCurr(-1)
+		}
+		setInProgress(prev => {
+			return {
+				...prev,
+				pop: false,
+			}
+		})
+	}
+
+	const clear = () => {
+		setInProgress(prev => {
+			return {
+				...prev,
+				clearInt: true,
+			}
+		})
+		queue.clear()
+		setArr([...queue.getQueue()])
+		setHead(queue.getHead())
+		setTail(queue.getTail())
+		setInProgress(prev => {
+			return {
+				...prev,
+				clearInt: false,
+			}
+		})
+	}
 
 	return (
 		<SolutionLayout title='Очередь'>
 			<form className={styles.layout}>
 				<div className={styles.leftWrap}>
 					<Input isLimitText={true} maxLength={4} value={input} onChange={handleChange} />
-					<Button text='Добавить' disabled={!input || tail === 7} onClick={() => enqueue(input)} />
-					<Button text='Удалить' />
+					<Button
+						text='Добавить'
+						disabled={!input || tail === 7}
+						onClick={() => enqueue(input)}
+						isLoader={inProgress.push}
+					/>
+					<Button
+						text='Удалить'
+						disabled={(!input && !queue.getLength()) || head === 7}
+						onClick={() => dequeue()}
+						isLoader={inProgress.pop}
+					/>
 				</div>
-				<Button text='Очистить' />
+				<Button text='Очистить' onClick={() => clear()} disabled={head === 0 && tail === 0}/>
 			</form>
 			<div className={styles.list}>
 				{arr.map((item, index) => {
