@@ -4,7 +4,7 @@ import { Circle } from '../ui/circle/circle'
 import { Input } from '../ui/input/input'
 import { SolutionLayout } from '../ui/solution-layout/solution-layout'
 import styles from './string.module.css'
-import { stateCircle } from './utils/utils'
+import { stateCircle } from './utils'
 import { swap, delay } from '../../utils/utils'
 
 export const StringComponent: React.FC = () => {

@@ -1,4 +1,4 @@
-import { ElementStates } from '../../../types/element-states'
+import { ElementStates } from '../../types/element-states'
 
 export const stateCircle = (index: number, step: number, arr: Array<string>) => {
 	if (index < step || index > arr.length - 1 - step) {

@@ -4,7 +4,7 @@ import { Button } from '../ui/button/button'
 import { Circle } from '../ui/circle/circle'
 import { Input } from '../ui/input/input'
 import { SolutionLayout } from '../ui/solution-layout/solution-layout'
-import { stack } from './utils/stack'
+import { stack } from './stack'
 import { delay } from '../../utils/utils'
 import styles from './stack-page.module.css'
 
