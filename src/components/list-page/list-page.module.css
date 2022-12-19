@@ -1,0 +1,31 @@
+.layout {
+	max-width:952px;
+	margin: auto;
+	gap: 12px;
+	align-items: top;
+	justify-content: space-between;
+}
+.row {
+	width: 100%;
+	display: flex;
+	gap: 12px;
+	padding-bottom: 12px;
+}
+.input {
+	max-width: 204px;
+}
+.btn {
+	min-width: 175px;
+	word-wrap: nowrap;
+}
+.btnlong {
+	width: calc(175px*2 + 12px);
+}
+.list {
+	margin-top: 48px;
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+	align-items: flex-end;
+	height: 140px;
+}

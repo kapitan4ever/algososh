@@ -14,7 +14,6 @@ type TInProgress = {
 }
 
 export const QueuePage: React.FC = () => {
-	
 	const [input, setInput] = useState('')
 	const [arr, setArr] = useState(queue.getQueue())
 	const [head, setHead] = useState(queue.getHead())
