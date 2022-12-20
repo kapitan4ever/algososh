@@ -23,8 +23,8 @@ interface IListArrItem {
 interface IStateProgress {
 	addToHead: boolean
 	addToTail: boolean
-	delToHead: boolean
-	delToTail: boolean
+	delFromHead: boolean
+	delFromTail: boolean
 	addByIndex: boolean
 	delByIndex: boolean
 }
@@ -48,8 +48,8 @@ export const ListPage: React.FC = () => {
 	const [inProgress, setInProgress] = useState<IStateProgress>({
 		addToHead: false,
 		addToTail: false,
-		delToHead: false,
-		delToTail: false,
+		delFromHead: false,
+		delFromTail: false,
 		addByIndex: false,
 		delByIndex: false,
 	})
@@ -119,6 +119,46 @@ export const ListPage: React.FC = () => {
 		setDisabled(false)
 	}
 
+  const delHead = async () => {
+    setInProgress({ ...inProgress, delFromHead: true})
+    setDisabled(true)
+    listArr[0] = {
+      ...listArr[0],
+      value: '',
+      littleCicle: {
+        value: listArr[0].value,
+        type: 'bottom',
+      }
+    }
+    list.deleteHead()
+    setListArr([...listArr])
+    await delay(500)
+    listArr.shift()
+    setListArr([...listArr])
+    setInProgress({...inProgress, delFromHead: false})
+    setDisabled(false)
+  }
+
+  const delTail = async () => {
+		setInProgress({ ...inProgress, delFromTail: true })
+		setDisabled(true)
+		listArr[listArr.length - 1] = {
+			...listArr[listArr.length - 1],
+			value: '',
+			littleCicle: {
+				value: listArr[listArr.length - 1].value,
+				type: 'bottom',
+			},
+		}
+		list.deleteTail()
+		setListArr([...listArr])
+		await delay(500)
+		listArr.pop()
+		setListArr([...listArr])
+		setInProgress({ ...inProgress, delFromTail: false })
+		setDisabled(false)
+	}
+
 	return (
 		<SolutionLayout title='Связный список'>
 			<form className={styles.layout}>
@@ -145,8 +185,20 @@ export const ListPage: React.FC = () => {
 						isLoader={inProgress.addToTail}
 						disabled={!inputValue || disabled || listArr.length >= 8}
 					/>
-					<Button text='Удалить из head' extraClass={styles.btn} />
-					<Button text='Удалить из tail' extraClass={styles.btn} />
+					<Button
+						text='Удалить из head'
+						extraClass={styles.btn}
+						onClick={delHead}
+						isLoader={inProgress.delFromHead}
+						disabled={listArr.length <= 1 || disabled}
+					/>
+					<Button
+						text='Удалить из tail'
+						extraClass={styles.btn}
+						onClick={delTail}
+						isLoader={inProgress.delFromTail}
+						disabled={listArr.length <= 1 || disabled}
+					/>
 				</div>
 				<div className={styles.row}>
 					<Input
