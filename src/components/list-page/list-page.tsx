@@ -86,6 +86,39 @@ export const ListPage: React.FC = () => {
 		setInProgress({ ...inProgress, addToHead: false })
 		setDisabled(false)
 	}
+
+	const addTail = async () => {
+		setInProgress({ ...inProgress, addToTail: true })
+		setDisabled(true)
+		list.append(inputValue)
+		listArr[listArr.length - 1] = {
+			...listArr[listArr.length - 1],
+			littleCicle: {
+				value: inputValue,
+				type: 'top',
+			},
+		}
+		setInputValue('')
+		setListArr([...listArr])
+		await delay(500)
+		listArr[listArr.length - 1] = {
+			...listArr[listArr.length - 1],
+			littleCicle: undefined,
+		}
+		setListArr([...listArr])
+		listArr.push({
+			value: inputValue,
+			state: ElementStates.Modified,
+			littleCicle: undefined,
+		})
+    setListArr([...listArr])
+		await delay(500)
+		listArr[listArr.length - 1].state = ElementStates.Default
+		setListArr([...listArr])
+		setInProgress({ ...inProgress, addToTail: false })
+		setDisabled(false)
+	}
+
 	return (
 		<SolutionLayout title='Связный список'>
 			<form className={styles.layout}>
@@ -105,7 +138,13 @@ export const ListPage: React.FC = () => {
 						isLoader={inProgress.addToHead}
 						disabled={!inputValue || disabled || listArr.length >= 8}
 					/>
-					<Button text='Добавить в tail' extraClass={styles.btn} />
+					<Button
+						text='Добавить в tail'
+						extraClass={styles.btn}
+						onClick={addTail}
+						isLoader={inProgress.addToTail}
+						disabled={!inputValue || disabled || listArr.length >= 8}
+					/>
 					<Button text='Удалить из head' extraClass={styles.btn} />
 					<Button text='Удалить из tail' extraClass={styles.btn} />
 				</div>
@@ -142,7 +181,11 @@ export const ListPage: React.FC = () => {
 											: styles.littleDownCicrcle
 									}
 								>
-									<Circle letter={item.littleCicle.value} isSmall={true} state={ElementStates.Changing}/>
+									<Circle
+										letter={item.littleCicle.value}
+										isSmall={true}
+										state={ElementStates.Changing}
+									/>
 								</div>
 							)}
 						</>
