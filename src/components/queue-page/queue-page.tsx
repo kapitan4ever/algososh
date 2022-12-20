@@ -92,7 +92,7 @@ export const QueuePage: React.FC = () => {
 
 	return (
 		<SolutionLayout title='Очередь'>
-			<form className={styles.layout}>
+			<form className={styles.layout} onSubmit={evt => evt.preventDefault()}>
 				<div className={styles.leftWrap}>
 					<Input isLimitText={true} maxLength={4} value={input} onChange={handleChange} />
 					<Button
@@ -108,7 +108,7 @@ export const QueuePage: React.FC = () => {
 						isLoader={inProgress.pop}
 					/>
 				</div>
-				<Button text='Очистить' onClick={() => clear()} disabled={head === 0 && tail === 0}/>
+				<Button text='Очистить' onClick={() => clear()} disabled={head === 0 && tail === 0} />
 			</form>
 			<div className={styles.list}>
 				{arr.map((item, index) => {

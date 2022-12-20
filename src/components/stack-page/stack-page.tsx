@@ -70,7 +70,7 @@ export const StackPage: React.FC = () => {
 
 	return (
 		<SolutionLayout title='Стек'>
-			<form className={styles.layout}>
+			<form className={styles.layout} onSubmit={evt => evt.preventDefault()}>
 				<div className={styles.leftWrap}>
 					<Input isLimitText={true} maxLength={4} value={input} onChange={handleChange} />
 					<Button

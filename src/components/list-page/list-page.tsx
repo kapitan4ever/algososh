@@ -178,6 +178,14 @@ export const ListPage: React.FC = () => {
 					type: 'top',
 				},
 			}
+			await delay(500)
+			setListArr([...listArr])
+			if (i > 0) {
+				listArr[i - 1] = {
+					...listArr[i - 1],
+					littleCicle: undefined,
+				}
+			}
 			setListArr([...listArr])
 		}
 		await delay(500)
@@ -257,6 +265,7 @@ export const ListPage: React.FC = () => {
 						value={inputValue}
 						onChange={handleChangeValue}
 						extraClass={styles.input}
+						
 					/>
 					<Button
 						text='Добавить в head'
@@ -296,6 +305,7 @@ export const ListPage: React.FC = () => {
 						disabled={disabled}
 						max={8}
 						maxLength={1}
+						type={'number'}
 					/>
 					<Button
 						text='Добавить по индексу'
@@ -327,7 +337,7 @@ export const ListPage: React.FC = () => {
 			<div className={styles.list}>
 				{listArr.map((item, index, arr) => {
 					return (
-						<div className={styles.cicleWrap}>
+						<div className={styles.cicleWrap} key={index}>
 							<Circle
 								key={index}
 								index={index}
