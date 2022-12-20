@@ -59,7 +59,7 @@ export const ListPage: React.FC = () => {
 	}
 
 	const handleChangeIndex = (e: ChangeEvent<HTMLInputElement>) => {
-		setInputValue(e.target.value)
+		setInputIndex(e.target.value)
 	}
 
 	const addHead = async () => {
@@ -111,7 +111,7 @@ export const ListPage: React.FC = () => {
 			state: ElementStates.Modified,
 			littleCicle: undefined,
 		})
-    setListArr([...listArr])
+		setListArr([...listArr])
 		await delay(500)
 		listArr[listArr.length - 1].state = ElementStates.Default
 		setListArr([...listArr])
@@ -119,27 +119,27 @@ export const ListPage: React.FC = () => {
 		setDisabled(false)
 	}
 
-  const delHead = async () => {
-    setInProgress({ ...inProgress, delFromHead: true})
-    setDisabled(true)
-    listArr[0] = {
-      ...listArr[0],
-      value: '',
-      littleCicle: {
-        value: listArr[0].value,
-        type: 'bottom',
-      }
-    }
-    list.deleteHead()
-    setListArr([...listArr])
-    await delay(500)
-    listArr.shift()
-    setListArr([...listArr])
-    setInProgress({...inProgress, delFromHead: false})
-    setDisabled(false)
-  }
+	const delHead = async () => {
+		setInProgress({ ...inProgress, delFromHead: true })
+		setDisabled(true)
+		listArr[0] = {
+			...listArr[0],
+			value: '',
+			littleCicle: {
+				value: listArr[0].value,
+				type: 'bottom',
+			},
+		}
+		list.deleteHead()
+		setListArr([...listArr])
+		await delay(500)
+		listArr.shift()
+		setListArr([...listArr])
+		setInProgress({ ...inProgress, delFromHead: false })
+		setDisabled(false)
+	}
 
-  const delTail = async () => {
+	const delTail = async () => {
 		setInProgress({ ...inProgress, delFromTail: true })
 		setDisabled(true)
 		listArr[listArr.length - 1] = {
@@ -156,6 +156,93 @@ export const ListPage: React.FC = () => {
 		listArr.pop()
 		setListArr([...listArr])
 		setInProgress({ ...inProgress, delFromTail: false })
+		setDisabled(false)
+	}
+
+	const addOfIndex = async () => {
+		setInProgress({ ...inProgress, addByIndex: true })
+		setDisabled(true)
+		const index = parseInt(inputIndex)
+		if (index === list.getSize()) {
+			setInputIndex('')
+			addTail()
+			return
+		}
+		list.addByIndex(inputValue, index)
+		for (let i = 0; i <= index; i++) {
+			listArr[i] = {
+				...listArr[i],
+				state: ElementStates.Changing,
+				littleCicle: {
+					value: inputValue,
+					type: 'top',
+				},
+			}
+			setListArr([...listArr])
+		}
+		await delay(500)
+		listArr[index] = {
+			...listArr[index],
+			state: ElementStates.Default,
+			littleCicle: undefined,
+		}
+		listArr.splice(index, 0, {
+			value: inputValue,
+			state: ElementStates.Modified,
+			littleCicle: undefined,
+		})
+		setListArr([...listArr])
+		listArr[index].state = ElementStates.Default
+		listArr.forEach(item => {
+			item.state = ElementStates.Default
+		})
+		await delay(500)
+		setListArr([...listArr])
+		setInputValue('')
+		setInputIndex('')
+		setInProgress({ ...inProgress, addByIndex: false })
+		setDisabled(false)
+	}
+
+	const delOfIndex = async () => {
+		setInProgress({ ...inProgress, delByIndex: true })
+		setDisabled(true)
+		const index = parseInt(inputIndex)
+		list.deleteByIndex(index)
+		for (let i = 0; i <= index; i++) {
+			listArr[i] = {
+				...listArr[i],
+				state: ElementStates.Changing,
+			}
+			await delay(500)
+			setListArr([...listArr])
+		}
+		listArr[index] = {
+			...listArr[index],
+			value: '',
+			littleCicle: {
+				value: listArr[index].value,
+				type: 'bottom',
+			},
+		}
+		await delay(500)
+		setListArr([...listArr])
+		listArr.splice(index, 1)
+		listArr[index - 1] = {
+			...listArr[index - 1],
+			value: listArr[index - 1].value,
+			state: ElementStates.Modified,
+			littleCicle: undefined,
+		}
+		await delay(500)
+		setListArr([...listArr])
+		listArr.forEach(item => {
+			item.state = ElementStates.Default
+		})
+		await delay(500)
+		setListArr([...listArr])
+		setInputIndex('')
+		setInProgress({ ...inProgress, delByIndex: false })
 		setDisabled(false)
 	}
 
@@ -206,15 +293,41 @@ export const ListPage: React.FC = () => {
 						value={inputIndex}
 						onChange={handleChangeIndex}
 						extraClass={styles.input}
+						disabled={disabled}
+						max={8}
+						maxLength={1}
 					/>
-					<Button text='Добавить по индексу' extraClass={styles.btnlong} />
-					<Button text='Удалить по индексу' extraClass={styles.btnlong} />
+					<Button
+						text='Добавить по индексу'
+						extraClass={styles.btnlong}
+						onClick={addOfIndex}
+						isLoader={inProgress.addByIndex}
+						disabled={
+							!inputIndex ||
+							!inputValue ||
+							disabled ||
+							listArr.length >= 8 ||
+							Number(inputIndex) > listArr.length - 1
+						}
+					/>
+					<Button
+						text='Удалить по индексу'
+						extraClass={styles.btnlong}
+						onClick={delOfIndex}
+						isLoader={inProgress.delByIndex}
+						disabled={
+							disabled ||
+							listArr.length === 0 ||
+							Number(inputIndex) > listArr.length - 1 ||
+							Number(inputIndex) < 1
+						}
+					/>
 				</div>
 			</form>
 			<div className={styles.list}>
 				{listArr.map((item, index, arr) => {
 					return (
-						<>
+						<div className={styles.cicleWrap}>
 							<Circle
 								key={index}
 								index={index}
@@ -240,7 +353,7 @@ export const ListPage: React.FC = () => {
 									/>
 								</div>
 							)}
-						</>
+						</div>
 					)
 				})}
 			</div>
