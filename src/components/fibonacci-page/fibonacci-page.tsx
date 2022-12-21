@@ -42,15 +42,19 @@ export const FibonacciPage: React.FC = () => {
 					value={input}
 					onChange={handleChange}
 				/>
-				<Button text='Рассчитать' type='submit' disabled={!input} isLoader={inProgress}></Button>
+				<Button
+					text='Рассчитать'
+					type='submit'
+					disabled={!input || input > 19}
+					isLoader={inProgress}
+				></Button>
 			</form>
 			<div className={styles.list}>
-        {arr && arr.map((value: number, index: number) => {
-          return (
-            <Circle key={index} letter={`${value}`} index={index}/>
-          )
-        })}
-      </div>
+				{arr &&
+					arr.map((value: number, index: number) => {
+						return <Circle key={index} letter={`${value}`} index={index} />
+					})}
+			</div>
 		</SolutionLayout>
 	)
 }

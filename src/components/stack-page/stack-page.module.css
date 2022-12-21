@@ -1,0 +1,25 @@
+.layout {
+	max-width: 829px;
+	display: flex;
+	margin: auto;
+	gap: 12px;
+	align-items: top;
+	justify-content: space-between;
+}
+.leftWrap {
+	max-width: 630px;
+	width: 100%;
+	display: flex;
+	gap: 12px;
+}
+.btn {
+	width: 121px;
+}
+.list {
+	margin-top: 48px;
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+	align-items: flex-end;
+	height: 140px;
+}
