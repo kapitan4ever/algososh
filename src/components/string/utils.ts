@@ -1,21 +1,27 @@
 import { ElementStates } from '../../types/element-states'
-import {swap} from '../../utils/utils'
 
-export const stateCircle = (index: number, step: number, arr: Array<string>) => {
-	if (index < step || index > arr.length - 1 - step) {
+
+export const stateCircle = (index: number, step: number, arr: Array<string | number>) => {
+	if (step < index || step > arr.length - 1 - index) {
 		return ElementStates.Modified
 	}
-	if (index === step || index === arr.length - 1 - step) {
+	if (index === step || step === arr.length - 1 - index) {
 		return ElementStates.Changing
 	}
 	return ElementStates.Default
 }
 
-export function reversedString (string: string) {
-	const arrayLetters = string.split('');
-	let endLetters = arrayLetters.length
+export const swap = <T>(strArr: T[], i: number, j: number): void => {
+	;[strArr[i], strArr[j - i]] = [strArr[j - i], strArr[i]]
+}
 
-	for (let index = 0; index < Math.floor(endLetters / 2); index++) {
-		swap(arrayLetters, index, endLetters - 1)
+export function reverseString (string: string) {
+	const arr = string.split('')
+	let end = arr.length
+
+	for (let i = 0; i < Math.floor(end / 2); i++) {
+		swap(arr, i, end - 1)
 	}
- }
+
+	return arr
+}

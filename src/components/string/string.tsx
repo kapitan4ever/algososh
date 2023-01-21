@@ -4,46 +4,48 @@ import { Circle } from '../ui/circle/circle'
 import { Input } from '../ui/input/input'
 import { SolutionLayout } from '../ui/solution-layout/solution-layout'
 import styles from './string.module.css'
-import { stateCircle } from './utils'
-import { swap, delay } from '../../utils/utils'
+import { delay } from '../../utils/utils'
+import { stateCircle, swap } from './utils'
 
 export const StringComponent: React.FC = () => {
 	const [input, setInput] = useState<string>('')
 	const [inProgress, setInProgress] = useState<boolean>(false)
-	const [arr, setArr] = useState<string[]>([])
+	const [arrReverse, setArrReverse] = useState<string[]>([])
 	const [step, setStep] = useState<number>(0)
 
-	const reverseString = async () => {
-		setInProgress(true)
-		setStep(0)
+	const reverseString = async (string: string): Promise<string[]> => {
+		const arr = string.split('')
+		let end = arr.length
 
-		const arrOfValueInput = input.split('')
-		setArr([...arrOfValueInput])
+		setStep(0)
+		setInProgress(true)
+		setArrReverse([...arr])
 		await delay(500)
 
-		let start = 0
-		let end = arrOfValueInput.length - 1
-		while (start < end) {
-			swap(arrOfValueInput, start, end)
-			start += 1
-			end -= 1
-			setStep(prev => prev + 1)
-			setArr([...arrOfValueInput])
-			await delay(1000)
+		for (let i = 0; i < Math.floor(end / 2); i++) {
+			swap(arr, i, end - 1)
+			setStep(i => i + 1)
+			setArrReverse([...arr])
+			await delay(500)
 		}
 
+		setStep(i => i + 1)
 		setInProgress(false)
+
+		return arr
 	}
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setInput(e.target.value)
+	const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+		const string = e.currentTarget.value.trim()
+		setInput(string)
 	}
 
-	const handleClick = (e: FormEvent<HTMLFormElement>) => {
+	const handleClick = (e: FormEvent<HTMLFormElement> | FormEvent<HTMLButtonElement>): void => {
 		e.preventDefault()
-		reverseString()
+		reverseString(input)
 		setInput('')
 	}
+
 	return (
 		<SolutionLayout title='Строка'>
 			<form className={styles.layout} onSubmit={handleClick}>
@@ -51,10 +53,10 @@ export const StringComponent: React.FC = () => {
 				<Button text='Развернуть' type='submit' disabled={!input} isLoader={inProgress} />
 			</form>
 			<div className={styles.list}>
-				{arr.length === 0
+				{arrReverse.length === 0
 					? null
-					: arr.map((letter, index, arr) => {
-							return <Circle letter={letter} key={index} state={stateCircle(index, step, arr)} />
+					: arrReverse.map((letter, index, arr) => {
+							return <Circle letter={letter} key={index} state={stateCircle(index, step, arrReverse)} />
 					  })}
 			</div>
 		</SolutionLayout>
