@@ -55,7 +55,7 @@ export const StringComponent: React.FC = () => {
 			<div className={styles.list}>
 				{arrReverse.length === 0
 					? null
-					: arrReverse.map((letter, index, arr) => {
+					: arrReverse.map((letter, index) => {
 							return <Circle letter={letter} key={index} state={stateCircle(index, step, arrReverse)} />
 					  })}
 			</div>
