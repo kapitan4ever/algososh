@@ -38,6 +38,30 @@ exports[`Circle renders with correct isSmall 1`] = `
 </div>
 `;
 
+exports[`Circle renders with correct state Changing 1`] = `
+<p
+  class="text text_type_circle text_color_input letter"
+>
+  changing
+</p>
+`;
+
+exports[`Circle renders with correct state Default 1`] = `
+<p
+  class="text text_type_circle text_color_input letter"
+>
+  default
+</p>
+`;
+
+exports[`Circle renders with correct state Modified 1`] = `
+<p
+  class="text text_type_circle text_color_input letter"
+>
+  modified
+</p>
+`;
+
 exports[`Circle renders with correct text 1`] = `
 <div
   class="content "
