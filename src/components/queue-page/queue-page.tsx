@@ -94,8 +94,15 @@ export const QueuePage: React.FC = () => {
 		<SolutionLayout title='Очередь'>
 			<form className={styles.layout} onSubmit={evt => evt.preventDefault()}>
 				<div className={styles.leftWrap}>
-					<Input isLimitText={true} maxLength={4} value={input} onChange={handleChange} />
+					<Input
+						data-cy='input'
+						isLimitText={true}
+						maxLength={4}
+						value={input}
+						onChange={handleChange}
+					/>
 					<Button
+						data-cy='submit'
 						text='Добавить'
 						disabled={!input || tail === 7}
 						onClick={() => enqueue(input)}
