@@ -1,17 +1,9 @@
 import { defineConfig } from "cypress";
 
-export default defineConfig({
-  component: {
-    devServer: {
-      framework: "create-react-app",
-      bundler: "webpack",
-    },
-  },
+import { defineConfig } from 'cypress'
 
-  component: {
-    devServer: {
-      framework: "create-react-app",
-      bundler: "webpack",
-    },
-  },
-});
+export default defineConfig({
+	e2e: {
+		baseUrl: 'http://localhost:3000/',
+	},
+})

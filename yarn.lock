@@ -3586,10 +3586,10 @@
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.0.11.tgz"
   "version" "3.0.11"
 
-"cypress@^12.3.0":
-  "integrity" "sha512-ZQNebibi6NBt51TRxRMYKeFvIiQZ01t50HSy7z/JMgRVqBUey3cdjog5MYEbzG6Ktti5ckDt1tfcC47lmFwXkw=="
-  "resolved" "https://registry.npmjs.org/cypress/-/cypress-12.3.0.tgz"
-  "version" "12.3.0"
+"cypress@^12.4.0":
+  "integrity" "sha512-//h93K/yGC/7pxv1KamlkADbKHLp5h3f9rZDE2McRjXZDagMETH0sXowOOanvhsH8cFt/JWspIcK+p9cuaoAqg=="
+  "resolved" "https://registry.npmjs.org/cypress/-/cypress-12.4.0.tgz"
+  "version" "12.4.0"
   dependencies:
     "@cypress/request" "^2.88.10"
     "@cypress/xvfb" "^1.2.4"
