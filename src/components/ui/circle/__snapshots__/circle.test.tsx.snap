@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Circle renders with correct isSmall 1`] = `
+<div
+  class="circle  small default"
+  data-testid="circle-main"
+>
+  <p
+    class="text text_type_circle text_color_input letter"
+  />
+</div>
+`;
