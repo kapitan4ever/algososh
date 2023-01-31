@@ -59,4 +59,25 @@ describe('Circle', () => {
 		expect(circle).toHaveClass('small')
 		expect(circle).toMatchSnapshot()
 	})
+	it('renders with correct state Default', () => {
+		const { getByText } = render(<Circle state={ElementStates.Default} letter='default' />)
+		const circle = getByText('default')
+
+		expect(circle).toHaveTextContent('default')
+		expect(circle).toMatchSnapshot()
+	})
+	it('renders with correct state Modified', () => {
+		const { getByText } = render(<Circle state={ElementStates.Modified} letter='modified' />)
+		const circle = getByText('modified')
+
+		expect(circle).toHaveTextContent('modified')
+		expect(circle).toMatchSnapshot()
+	})
+	it('renders with correct state Changing', () => {
+		const { getByText } = render(<Circle state={ElementStates.Changing} letter='changing' />)
+		const circle = getByText('changing')
+
+		expect(circle).toHaveTextContent('changing')
+		expect(circle).toMatchSnapshot()
+	})
 })

@@ -22,9 +22,11 @@ export const Circle: React.FC<CircleProps> = ({
 	extraClass = '',
 	isSmall,
 }) => {
+	const wrapperTestId = isSmall ? 'circle-small' : 'circle'
 	return (
-		<div className={`${styles.content} ${extraClass}`}>
+		<div className={`${styles.content} ${extraClass}`} data-testid={wrapperTestId}>
 			<div
+				data-testid='circle-head'
 				className={`text text_type_input text_color_input mb-4 ${styles.absolute} ${styles.head} ${
 					styles[typeof head === 'string' ? 'string' : 'element']
 				}`}
@@ -38,11 +40,13 @@ export const Circle: React.FC<CircleProps> = ({
 				<p className={`text text_type_circle text_color_input ${styles.letter}`}>{letter}</p>
 			</div>
 			<p
+				data-testid='circle-index'
 				className={`text text_type_input text_color_input mt-4 ${styles.absolute} ${styles.index}`}
 			>
 				{index?.toString()}
 			</p>
 			<div
+				data-testid='circle-tail'
 				className={`text text_type_input text_color_input mt-4 ${styles.absolute} ${
 					index?.toString() ? styles.tail60 : styles.tail30
 				} ${styles[typeof tail === 'string' ? 'string' : 'element']}`}
