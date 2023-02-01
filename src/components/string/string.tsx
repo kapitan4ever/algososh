@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FC, FormEvent, useState } from 'react'
 import { Button } from '../ui/button/button'
 import { Circle } from '../ui/circle/circle'
 import { Input } from '../ui/input/input'
@@ -7,16 +7,16 @@ import styles from './string.module.css'
 import { delay } from '../../utils/utils'
 import { stateCircle, swap } from './utils'
 
-export const StringComponent: React.FC = () => {
+export const StringComponent: FC = () => {
 	const [input, setInput] = useState<string>('')
 	const [inProgress, setInProgress] = useState<boolean>(false)
 	const [arrReverse, setArrReverse] = useState<Array<string>>([])
 	const [step, setStep] = useState<number>(0)
 
-		const handleChange = (e: FormEvent<HTMLInputElement>): void => {
-			const string = e.currentTarget.value.trim()
-			setInput(string)
-		}
+	const handleChange = (e: FormEvent<HTMLInputElement>): void => {
+		const string = e.currentTarget.value.trim()
+		setInput(string)
+	}
 
 	const reverseString = async (string: string): Promise<string[]> => {
 		const arr = string.split('')
@@ -55,6 +55,7 @@ export const StringComponent: React.FC = () => {
 					maxLength={11}
 					value={input}
 					onChange={handleChange}
+					disabled={inProgress}
 				/>
 				<Button
 					data-cy='submit'
@@ -65,15 +66,13 @@ export const StringComponent: React.FC = () => {
 				/>
 			</form>
 			<div className={styles.list}>
-				{arrReverse.length === 0
-					? null
-					: arrReverse.map((letter, index) => {
+				{arrReverse.map((letter: string, index: number) => {
 							return (
 								<Circle
 									key={index}
 									letter={letter}
 									index={index + 1}
-									state={stateCircle(index, step, arrReverse)}
+									state={stateCircle(step, index, arrReverse)}
 								/>
 							)
 					  })}

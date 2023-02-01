@@ -34,22 +34,22 @@ describe('Корректная работа строки', () => {
 
 			cy.get(elem[1])
 				.invoke('attr', 'class')
-				.then(classList => expect(classList).contains(modifiedStyle))
+				.then(classList => expect(classList).contains(defaultStyle))
 			cy.get(elem[1]).children().should('have.text', 'e')
 
 			cy.get(elem[2])
 				.invoke('attr', 'class')
-				.then(classList => expect(classList).contains(modifiedStyle))
+				.then(classList => expect(classList).contains(defaultStyle))
 			cy.get(elem[2]).children().should('have.text', 'l')
 
 			cy.get(elem[3])
 				.invoke('attr', 'class')
-				.then(classList => expect(classList).contains(modifiedStyle))
+				.then(classList => expect(classList).contains(defaultStyle))
 			cy.get(elem[3]).children().should('have.text', 'l')
 
 			cy.get(elem[4])
 				.invoke('attr', 'class')
-				.then(classList => expect(classList).contains(modifiedStyle))
+				.then(classList => expect(classList).contains(changingStyle))
 			cy.get(elem[4]).children().should('have.text', 'o')
 		})
 
@@ -68,7 +68,7 @@ describe('Корректная работа строки', () => {
 
 			cy.get(elem[3])
 				.invoke('attr', 'class')
-				.then(classList => expect(classList).contains(modifiedStyle))
+				.then(classList => expect(classList).contains(changingStyle))
 			cy.get(elem[3]).children().should('have.text', 'l')
 
 			cy.get(elem[4])
@@ -108,7 +108,7 @@ describe('Корректная работа строки', () => {
 
 		cy.get(mainCircle)
 			.invoke('attr', 'class')
-			.then(classList => expect(classList).contains(defaultStyle))
+			.then(classList => expect(classList).contains(modifiedStyle))
 
 		cy.get(dataCyForm).within(() => {
 			cy.get(dataCyInput).should('have.value', '')

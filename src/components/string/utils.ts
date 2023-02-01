@@ -12,7 +12,7 @@ export const stateCircle = (index: number, step: number, arr: Array<string | num
 }
 
 export const swap = <T>(strArr: T[], i: number, j: number): void => {
-	;[strArr[i], strArr[j - i]] = [strArr[j - i], strArr[i]]
+	[strArr[i], strArr[j - i]] = [strArr[j - i], strArr[i]]
 }
 
 export function reverseString (string: string) {
