@@ -58,7 +58,7 @@ describe('Корректная работа строки', () => {
 		cy.get(mainCircle).then(elem => {
 			cy.get(elem[0])
 				.invoke('attr', 'class')
-				.then(classList => expect(classList).contains(changingStyle))
+				.then(classList => expect(classList).contains(modifiedStyle))
 			cy.get(elem[0]).children().should('have.text', 'o')
 
 			cy.get(elem[1])
@@ -82,7 +82,7 @@ describe('Корректная работа строки', () => {
 		cy.get(mainCircle).then(elem => {
 			cy.get(elem[1])
 				.invoke('attr', 'class')
-				.then(classList => expect(classList).contains(changingStyle))
+				.then(classList => expect(classList).contains(modifiedStyle))
 			cy.get(elem[1]).children().should('have.text', 'l')
 
 			cy.get(elem[2])
