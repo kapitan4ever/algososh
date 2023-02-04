@@ -23,3 +23,25 @@ function randomInteger(min: number, max: number) {
 	rand = Math.round(rand)
 	return rand
 }
+
+//wait best of delay
+// export const wait = (ms, value, { signal } = {}) => {
+// 	return new Promise((resolve, reject) => {
+// 		const listener = () => {
+// 			clearTimeout(timer)
+// 			reject(new Error('Aborted'))
+// 		}
+// 		const timer = setTimeout(() => {
+// 			signal?.removeEventListener('abort', listener)
+// 			resolve(value)
+// 		}, ms)
+// 		if (signal?.aborted) {
+// 			listener()
+// 		}
+// 		signal?.addEventListener('abort', listener)
+// 	})
+// }
+//how to use: 
+//const controller = new AbortController();
+//const signal = controller.signal;
+//await delay(500, null, {signal})

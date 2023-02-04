@@ -1,23 +1,14 @@
 import { FC, useEffect, useState } from 'react'
 import { Direction } from '../../types/direction'
-import { delay, swap } from '../../utils/utils'
 import { Button } from '../ui/button/button'
 import { Column } from '../ui/column/column'
 import { RadioInput } from '../ui/radio-input/radio-input'
 import { SolutionLayout } from '../ui/solution-layout/solution-layout'
 import { randomArr } from '../../utils/utils'
 import styles from './sorting-page.module.css'
-import { ElementStates } from '../../types/element-states'
+import { TNewArr, TInProgress } from '../../types/sorting'
+import { bubbleSort, selectionSort } from './utils'
 
-type TNewArr = {
-	item: number
-	state: ElementStates
-}
-
-type TInProgress = {
-	ascending: boolean
-	descending: boolean
-}
 
 export const SortingPage: FC = () => {
 	const [newArr, setNewArr] = useState<TNewArr[]>([])
@@ -31,75 +22,18 @@ export const SortingPage: FC = () => {
 
 	//сортировка массива
 	const handleAscending = () => {
-		if (checked === 'selection') selectionSort(true)
-		if (checked === 'bubble') bubbleSort(true)
-	}
-	const handleDescending = () => {
-		if (checked === 'selection') selectionSort(false)
-		if (checked === 'bubble') bubbleSort(false)
-	}
-
-	//задержка вывода
-	const delaySort = async () => {
-		setNewArr([...newArr])
-		await delay(250)
-	}
-
-	//сортировка пузырьком
-	const bubbleSort = async (isAscending: boolean) => {
-		setInProgress({ ...inProgress, ascending: isAscending, descending: !isAscending })
-		for (let i = 0; i < newArr.length - 1; i++) {
-			for (let z = 0; z < newArr.length - 1 - i; z++) {
-				newArr[z].state = ElementStates.Changing
-				newArr[z + 1].state = ElementStates.Changing
-				await delaySort()
-				if (isAscending) {
-					if (newArr[z].item > newArr[z + 1].item) {
-						swap(newArr, z, z + 1)
-						await delaySort()
-					}
-				} else {
-					if (newArr[z].item < newArr[z + 1].item) {
-						swap(newArr, z, z + 1)
-						await delaySort()
-					}
-				}
-				newArr[z].state = ElementStates.Default
-				newArr[z + 1].state = ElementStates.Default
-			}
-			newArr[newArr.length - i - 1].state = ElementStates.Modified
-			await delaySort()
-		}
-		newArr[0].state = ElementStates.Modified
-		await delaySort()
+		setInProgress({...inProgress, ascending: true, descending: false})
+		if (checked === 'selection') selectionSort(true, newArr, setNewArr, 250)
+		if (checked === 'bubble') bubbleSort(true, newArr, setNewArr, 250)
 		setInProgress({ ...inProgress, ascending: false, descending: false })
 	}
-
-	//сортировка выбором
-	const selectionSort = async (isAscending: boolean) => {
-		setInProgress({ ...inProgress, ascending: isAscending, descending: !isAscending })
-		for (let i = 0; i < newArr.length; i++) {
-			let maxInd = i
-			newArr[maxInd].state = ElementStates.Changing
-			setNewArr([...newArr])
-			for (let z = i + 1; z < newArr.length; z++) {
-				newArr[z].state = ElementStates.Changing
-				await delaySort()
-				if (isAscending) {
-					if (newArr[maxInd].item > newArr[z].item) maxInd = z
-				} else {
-						if (newArr[maxInd].item < newArr[z].item) maxInd = z
-					}
-					newArr[z].state = ElementStates.Default
-					await delaySort()
-				}
-				swap(newArr, i, maxInd)
-				newArr[maxInd].state = ElementStates.Default
-				newArr[i].state = ElementStates.Modified
-				await delaySort()
-			}
-			setInProgress({ ...inProgress, ascending: false, descending: false })
-		}
+	const handleDescending = () => {
+		setInProgress({ ...inProgress, ascending: false, descending: true })
+		if (checked === 'selection') selectionSort(false, newArr, setNewArr, 250)
+		if (checked === 'bubble') bubbleSort(false, newArr, setNewArr, 250)
+		setInProgress({ ...inProgress, ascending: false, descending: false })
+	}
+	
 //первоначальная загрузка массива
 		 useEffect(() => {
 				setNewArr(randomArr())

@@ -259,15 +259,16 @@ export const ListPage: React.FC = () => {
 			<form className={styles.layout}>
 				<div className={styles.row}>
 					<Input
+						data-cy='input'
 						placeholder='Введите значение'
 						isLimitText={true}
 						maxLength={4}
 						value={inputValue}
 						onChange={handleChangeValue}
 						extraClass={styles.input}
-						
 					/>
 					<Button
+						data-cy='add_head'
 						text='Добавить в head'
 						extraClass={styles.btn}
 						onClick={addHead}
@@ -275,6 +276,7 @@ export const ListPage: React.FC = () => {
 						disabled={!inputValue || disabled || listArr.length >= 8}
 					/>
 					<Button
+						data-cy='add_tail'
 						text='Добавить в tail'
 						extraClass={styles.btn}
 						onClick={addTail}
@@ -282,6 +284,7 @@ export const ListPage: React.FC = () => {
 						disabled={!inputValue || disabled || listArr.length >= 8}
 					/>
 					<Button
+						data-cy='remove_head'
 						text='Удалить из head'
 						extraClass={styles.btn}
 						onClick={delHead}
@@ -308,6 +311,7 @@ export const ListPage: React.FC = () => {
 						type={'number'}
 					/>
 					<Button
+						data-cy='add_by_index'
 						text='Добавить по индексу'
 						extraClass={styles.btnlong}
 						onClick={addOfIndex}

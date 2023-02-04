@@ -33,20 +33,21 @@ export const Button: React.FC<ButtonProps> = ({
   } ${extraClass}`;
 
   return (
-    <button
-      className={className}
-      type={type}
-      disabled={isLoader || disabled}
-      {...rest}
-    >
-      {isLoader ? (
-        <img className={styles.loader_icon} src={loaderIcon} alt="Загрузка." />
-      ) : (
-        <>
-          {sorting && currentIcon}
-          <p className={`text ${sorting && "ml-5"}`}>{text}</p>
-        </>
-      )}
-    </button>
-  );
+		<button
+			data-testid='button'
+			className={className}
+			type={type}
+			disabled={isLoader || disabled}
+			{...rest}
+		>
+			{isLoader ? (
+				<img className={styles.loader_icon} src={loaderIcon} alt='Загрузка.' />
+			) : (
+				<>
+					{sorting && currentIcon}
+					<p className={`text ${sorting && 'ml-5'}`}>{text}</p>
+				</>
+			)}
+		</button>
+	)
 };
